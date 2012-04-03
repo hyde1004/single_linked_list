@@ -54,12 +54,12 @@ void deleteNode(struct Node (*head), int index)
 void showList(struct Node (*head))
 {
 	struct Node *pCur = NULL;
-	int i = 0;
 
 	for(pCur=head->next;pCur;pCur=pCur->next)
 	{
-		printf("Node [%d] : %d\n", i++, pCur->data);
+		printf("[ %p | %d ] ---> ", pCur, pCur->data);
 	}
+	printf("NULL\n");
 };
 
 struct Node (*gHead) = NULL;
@@ -76,7 +76,7 @@ int main(void)
 	showList(gHead);
 
 	printf("After.......\n");
-	deleteNode(gHead, 0);
+	deleteNode(gHead, 1);
 	showList(gHead);
 
 	return 0;
