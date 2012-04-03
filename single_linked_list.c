@@ -40,7 +40,7 @@ void deleteNode(struct Node (*head), int index)
 
 	for(pCur=head;pCur->next;pCur=pCur->next)
 	{
-		printf("i : %d\n", i);
+/*		printf("i : %d\n", i);	*/
 		if (i<index)
 			i++;
 		else
@@ -68,14 +68,14 @@ int main(void)
 {
 	initList(&gHead);
 
-	printf("Before......\n");
 	appendNode(gHead, 100);
 	appendNode(gHead, 200);
 	appendNode(gHead, 300);
 
+	printf("Show List\n");
 	showList(gHead);
 
-	printf("After.......\n");
+	printf("\n\nAfter deleting 2nd node\n");
 	deleteNode(gHead, 1);
 	showList(gHead);
 
