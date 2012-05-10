@@ -33,14 +33,23 @@ void appendNode(struct Node (*head), int data)
 	pCur->next = node;
 };
 
+/* index : 0 ==> first node,
+ * index : 1 ==> second node,
+ * index : n ==> (n+1)th node,
+ */
 void deleteNode(struct Node (*head), int index)
 {
+/* pCur : a previous node 
+ * pCur-> next : a node to be deleted 
+ * pCur->next->next : a next node
+ * */
 	struct Node *pCur = NULL;
 	int i = 0;
 
 	for(pCur=head;pCur->next;pCur=pCur->next)
 	{
-/*		printf("i : %d\n", i);	*/
+//		printf("i : %d\n", i);	
+//		printf("pCur : %p, pCur->next : %p\n", pCur, pCur->next);
 		if (i<index)
 			i++;
 		else
