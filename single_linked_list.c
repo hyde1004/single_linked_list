@@ -44,6 +44,7 @@ void deleteNode(struct Node (*head), int index)
  * pCur->next->next : a next node
  * */
 	struct Node *pCur = NULL;
+	struct Node *pTemp = NULL;
 	int i = 0;
 
 	for(pCur=head;pCur->next;pCur=pCur->next)
@@ -56,6 +57,7 @@ void deleteNode(struct Node (*head), int index)
 			break;
 	}
 
+	pTemp = pCur->next;	/* the node to be deleted  	*/
 	pCur->next = (pCur->next)->next;
 	free(pCur->next);
 }
