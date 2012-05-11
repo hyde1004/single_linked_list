@@ -59,7 +59,7 @@ void deleteNode(struct Node (*head), int index)
 
 	pTemp = pCur->next;	/* the node to be deleted  	*/
 	pCur->next = (pCur->next)->next;
-	free(pCur->next);
+	free(pTemp);
 }
 
 void showList(struct Node (*head))
