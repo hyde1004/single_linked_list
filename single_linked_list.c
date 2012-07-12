@@ -62,6 +62,17 @@ void deleteNode(struct Node (*head), int index)
 	free(pTemp);
 }
 
+
+void freeList(struct Node *head)
+{
+	while(head->next)
+	{
+		deleteNode(head, 0);
+	}
+
+	free(head);
+}
+
 void showList(struct Node (*head))
 {
 	struct Node *pCur = NULL;
@@ -70,6 +81,7 @@ void showList(struct Node (*head))
 	{
 		printf("[ %p | %d ] ---> ", pCur, pCur->data);
 	}
+
 	printf("NULL\n");
 };
 
@@ -89,6 +101,9 @@ int main(void)
 	printf("\n\nAfter deleting 2nd node\n");
 	deleteNode(gHead, 1);
 	showList(gHead);
+
+	freeList(gHead);
+	gHead = NULL;
 
 	return 0;
 }
