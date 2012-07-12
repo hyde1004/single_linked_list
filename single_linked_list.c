@@ -2,31 +2,31 @@
 #include <stdlib.h>
 #include <memory.h>
 
-struct Node
+struct Node 
 {
 	int data;
-	struct Node (*next);
+	struct Node *next;
 };
 
-void initList(struct Node (**head))
-{
-	(*head) = (struct Node *) malloc(sizeof(struct Node));
-	memset((*head), 0, sizeof(struct Node));
+struct Node *gHead = NULL;
 
+void InitList(struct Node **head)
+{
+	*head = (struct Node *) malloc(sizeof(struct Node));
 	(*head)->data = 0;
 	(*head)->next = NULL;
 };
 
-void appendNode(struct Node (*head), int data)
+void AppendNode(struct Node *head, int data)
 {
 	struct Node *pCur = NULL;
-	struct Node *node = (struct Node *) malloc(sizeof(struct Node));
-	memset(node, 0, sizeof(struct Node));
-
+	struct Node *node = NULL;
+	node = (struct Node *) malloc(sizeof(struct Node));
 	node->data = data;
 	node->next = NULL;
 
-	for(pCur=head;pCur->next;pCur=pCur->next)
+
+	for(pCur = head; pCur->next; pCur = pCur->next)
 	{
 	}
 
@@ -37,7 +37,7 @@ void appendNode(struct Node (*head), int data)
  * index : 1 ==> second node,
  * index : n ==> (n+1)th node,
  */
-void deleteNode(struct Node (*head), int index)
+void DeleteNode(struct Node *head, int index)
 {
 /* pCur : a previous node 
  * pCur-> next : a node to be deleted 
@@ -47,63 +47,63 @@ void deleteNode(struct Node (*head), int index)
 	struct Node *pTemp = NULL;
 	int i = 0;
 
-	for(pCur=head;pCur->next;pCur=pCur->next)
+	for(pCur = head; pCur->next; pCur = pCur->next)
 	{
-//		printf("i : %d\n", i);	
-//		printf("pCur : %p, pCur->next : %p\n", pCur, pCur->next);
 		if (i<index)
 			i++;
 		else
 			break;
 	}
 
-	pTemp = pCur->next;	/* the node to be deleted  	*/
-	pCur->next = (pCur->next)->next;
-	free(pTemp);
-}
+	pTemp = pCur->next;
+	pCur->next = pCur->next->next;
+
+	free(pCur);
+};
+
+void ShowList(struct Node *head)
+{
+	struct Node *pCur = NULL;
+
+	printf("** List of Nodes **\n");
+	for(pCur = head; pCur; pCur = pCur->next)
+	{
+		printf("[ %p | %d ] ---> ", pCur, pCur->data);
+	}
+	printf("NULL\n\n");
+};
 
 
-void freeList(struct Node *head)
+void FreeList(struct Node *head)
 {
 	while(head->next)
 	{
-		deleteNode(head, 0);
+		DeleteNode(head, 0);
 	}
 
 	free(head);
 }
 
-void showList(struct Node (*head))
-{
-	struct Node *pCur = NULL;
-
-	for(pCur=head->next;pCur;pCur=pCur->next)
-	{
-		printf("[ %p | %d ] ---> ", pCur, pCur->data);
-	}
-
-	printf("NULL\n");
-};
-
-struct Node (*gHead) = NULL;
-
 int main(void)
 {
-	initList(&gHead);
+	printf("** Single Linked List **\n");
 
-	appendNode(gHead, 100);
-	appendNode(gHead, 200);
-	appendNode(gHead, 300);
+	InitList(&gHead);
 
-	printf("Show List\n");
-	showList(gHead);
+	printf("* Add Nodes *\n");
+	AppendNode(gHead, 100);
+	AppendNode(gHead, 200);
+	AppendNode(gHead, 300);
 
-	printf("\n\nAfter deleting 2nd node\n");
-	deleteNode(gHead, 1);
-	showList(gHead);
+	printf("* Show List *\n");
+	ShowList(gHead);
 
-	freeList(gHead);
-	gHead = NULL;
+	printf("* Delete Nodes *\n");
+	DeleteNode(gHead, 1);
+	ShowList(gHead);
+
+	FreeList(gHead);
+//	gHead = NULL;
 
 	return 0;
 }
