@@ -42,6 +42,8 @@ void DeleteNode(struct Node *head, int index)
 /* pCur : a previous node 
  * pCur-> next : a node to be deleted 
  * pCur->next->next : a next node
+ *
+ * pTemp : the node to be deleted  
  * */
 	struct Node *pCur = NULL;
 	struct Node *pTemp = NULL;
@@ -55,10 +57,10 @@ void DeleteNode(struct Node *head, int index)
 			break;
 	}
 
-	pTemp = pCur->next;
+	pTemp = pCur->next;	/* pTemp : the node to be deleted  */
 	pCur->next = pCur->next->next;
 
-	free(pCur);
+	free(pTemp);
 };
 
 void ShowList(struct Node *head)
@@ -103,7 +105,7 @@ int main(void)
 	ShowList(gHead);
 
 	FreeList(gHead);
-//	gHead = NULL;
+	gHead = NULL;
 
 	return 0;
 }
